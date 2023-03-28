@@ -1,0 +1,35 @@
+﻿@model IQueryable<BlogItem>
+@{
+    string strTitle = "Редактировать статьи";
+    ViewBag.Title = strTitle;
+}
+
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <h3>Наш блог</h3>
+        <div class="div-box">
+            <a asp-area="Admin" asp-controller="BlogItems" asp-action="Edit" asp-route-id="">Добавить статью</a>
+        </div>
+        @if (Model.Any())
+        {
+            <div>
+                @foreach (BlogItem entity in Model)
+                {
+                    <div>
+                        <a asp-area="Admin" asp-controller="BlogItems" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                        |
+                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Admin" asp-controller="BlogItems" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@entity.Id">
+                            <a href="#" onclick="document.getElementById('form-@entity.Id').submit();">удалить</a>
+                        </form>
+                        |
+                        <a asp-area="" asp-controller="Blogs" asp-action="Index" asp-route-id="@entity.Id">
+                            @($"{entity.Title}")
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

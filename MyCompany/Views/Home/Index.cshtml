@@ -1,0 +1,37 @@
+﻿@model TextField
+@{
+    ViewBag.Title = Model.MetaTitle;
+    ViewBag.Description = Model.MetaDescription;
+    ViewBag.Keywords = Model.MetaKeywords;
+}
+
+<div>
+    @Html.Raw(Model.Text)
+</div>
+<p></p>
+<p></p>
+<div>
+    <!-- Создаём форму и указываем её обработчик и метод -->
+    <form asp-controller="Home" asp-action="Index" method="post" enctype="multipart/form-data">
+        <div>
+            <style type="text/css">
+                input{
+                    margin: 0px 20px 20px 0px;
+                    height: 30px;
+                    display: flex;
+                }
+            </style>
+            <!-- Поле ввода имени -->
+            <input name="FullName" type="text" placeholder="Ваше имя" size="60" />
+            <br>
+            <!-- Поле ввода почты  -->
+            <input name="Email" type="text" placeholder="Ваша почта" size="60" />
+            <br>
+            <!-- Текстовое поле для самого сообщения -->
+            <textarea cols="40" name="QuestionText" rows="10">Текст сообщения</textarea>
+            <br>
+            <!-- Кнопка с надписью «Отправить», которая запускает обработчик формы -->
+            <input type="submit" value="Отправить" />
+        </div>
+    </form>
+</div>

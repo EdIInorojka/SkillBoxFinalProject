@@ -1,0 +1,20 @@
+﻿@model IQueryable<ProjectItem>
+
+
+<div>
+    @if (Model.Any())
+    {
+        <ul class="big-image-list">
+            @foreach (ProjectItem entity in Model)
+            {
+                <li>
+                    <a asp-area="" asp-controller="Projects" asp-action="Index" asp-route-id="@entity.Id">
+                        <img src="~/images/@entity.TitleImagePath" alt="" class="left" />
+                    </a>
+                    <h4>@entity.Title</h4>
+                    <p>@entity.Subtitle</p>
+                </li>
+            }
+        </ul>
+    }
+</div>

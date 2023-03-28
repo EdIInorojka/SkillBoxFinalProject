@@ -1,0 +1,81 @@
+﻿@model IQueryable<Question>
+@{
+    string strTitle = "Вопросы";
+    ViewBag.Title = strTitle;
+}
+<script src="~/js/ckeditor/ckeditor.js"></script>
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="Admin" asp-controller="Questions" asp-action="ShowAll" method="post" enctype="multipart/form-data">
+            <style type="text/css">
+                p {
+                font-size: 20px;
+                }
+            </style>
+            <br />
+            <p>Всего вопросов: @Model.Count()</p>
+            Date from: <input class="form-control" id="from" type="date" /> to: <input class="form-control" id="to" type="date" />
+            <input class="form-controll" id="name" type="text" placeholder="Поиск по имени...(1я буква)" />
+            <br />
+            <table id="myTable">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Имя</th>
+                        <th>Текст вопроса</th>
+                        <th>Статус</th>
+                        <th>Дата добавления</th>
+                        <th></th>
+                        <th></th>
+                        <style type="text/css" >
+                            table {
+                                width: 100%;
+                                white-space:normal;
+                                font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+                                text-align: left;
+                                border-collapse: separate;
+                                border-spacing: 5px;
+                                background: #ECE9E0;
+                                color: #656665;
+                                border: 16px solid #ECE9E0;
+                                border-radius: 20px;
+                            }
+                            th {
+                                font-size: 18px;
+                                padding: 10px;
+                            }
+                            td {
+                                background: #F5D7BF;
+                                padding: 10px;
+                                white-space:normal;
+                            }
+                        </style>
+                    </tr>
+                </thead>
+                <tbody id="my-table">
+                    @foreach (Question entity in Model)
+                    {
+                        <tr class="list-group">
+                            <td>@entity.Email</td>
+                            <td>@entity.FullName</td>
+                            <td width=1500px>@entity.QuestionText</td>
+                            <td>@entity.QuestionStatus</td>
+                            <td>@entity.DateAdded</td>
+                            <td>
+                                <a asp-controller="Questions" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                            </td>
+                            <td>
+                                <form method="post" asp-controller="Questions" asp-action="Delete">
+                                    <input type="hidden" name="Id" value="@entity.Id" />
+                                    <input type="submit" value="удалить" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
